@@ -1,0 +1,41 @@
+.login-page {
+    background-color: #61777f;
+    width: 120vh;
+    height: 80vh;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    margin-left: 45vh;
+    margin-top: 10vh;
+    border-radius: 20px;
+    box-shadow: 8px 8px 8px #8aa0a8;
+}
+
+.login-page>input {
+    width: 60vh;
+    height: 40px;
+    margin: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    padding: 5px;
+    align-self: center;
+}
+
+.login-header {
+    color: white;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-page>p {
+    font-size: 20px;
+}
+
+.signup-link {
+    text-decoration: none;
+    color: white
+}
+
+.login-button {
+    margin-bottom: 10px;
+}

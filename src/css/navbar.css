@@ -1,0 +1,31 @@
+nav {
+    background-color: #61777f;
+    height: 15vh;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    font-family: "poppins", "sans-serif";
+    box-shadow: 8px 8px 8px #8aa0a8;
+}
+
+.nav-image {
+    height: 15vh;
+    margin-left: 10px;
+}
+
+.nav-content {
+    text-decoration: none;
+    margin: 50px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+
+}
+
+.nav-element {
+    display: flex;
+}
+
+.nav-content:hover {
+    color: black
+}

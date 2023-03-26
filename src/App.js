@@ -1,25 +1,55 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
+import NavBar from './components/NavBar';
+import Home from './components/Home';
+import About from './components/About';
+import Account from './components/Account';
+import Login from './components/Login';
+import SignUp from './components/SignUp';
+
+// import Home from './components/Home';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <RouterProvider Router router={route} />
   );
 }
+const BlogLayout = () => {
+  return (
+    <>
+      <NavBar />
+      <Outlet />
+    </>
+  )
+}
 
+const route = createBrowserRouter([
+  {
+    path: "/",
+    element: <BlogLayout />,
+    children: [
+      {
+        path: 'signup',
+        element: <SignUp />
+      },
+      {
+        path: 'login',
+        element: <Login />
+      },
+      {
+        path: '',
+        element: <Home />
+      },
+      {
+        path: 'about',
+        element: <About />
+      },
+      {
+        path: 'account',
+        element: <Account />
+      },
+    ]
+  }
+])
 export default App;

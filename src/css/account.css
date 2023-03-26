@@ -1,0 +1,102 @@
+.account-content {
+    background-color: #61777f;
+    width: 150vh;
+    height: 70vh;
+    padding: 20px;
+    display: flex;
+    margin: 30px;
+    justify-content: center;
+    margin-left: 25vh;
+    flex-direction: column;
+    font-family: "poppins", "sans-serif";
+    box-shadow: 4px 4px 8px #8aa0a8;
+}
+
+.blog-title {
+    height: 40px;
+    margin: 15px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.blog-description {
+    margin: 15px;
+    font-size: 15px;
+}
+
+.blog-category {
+    font-size: 20px;
+    color: white;
+    margin: 15px;
+}
+
+.blog-list {
+    width: 30vh;
+    height: 5vh;
+    margin: 15px;
+}
+
+button {
+    width: 30vh;
+    height: 40px;
+    border-radius: 20px;
+    border-color: none;
+    align-self: center;
+    font-weight: bold;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: #2d373b;
+    color: white;
+}
+
+.account-blogs {
+    background-color: white;
+    width: 190vh;
+    height: fit-content;
+    margin: 20px;
+    padding: 20px;
+    margin-left: 35px;
+}
+
+.update-delete {
+    margin-left: 55vh;
+}
+
+.update-button {
+    margin-left: 20px;
+    margin-right: 40px;
+    background-color: #61777f;
+    color: white;
+}
+
+.delete-button {
+    margin-left: 20px;
+    margin-right: 40px;
+    background-color: #61777f;
+    color: white;
+}
+
+.edit-box {
+    box-shadow: 1px 2px 20px 2px #8aa0a8;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.edit-input {
+    margin-top: 20px;
+    width: 50vh;
+    height: 30px;
+    align-self: center;
+}
+
+.edit-button {
+    margin-bottom: 15px;
+}
+
+.edit-category {
+    margin-left: 10px;
+}
