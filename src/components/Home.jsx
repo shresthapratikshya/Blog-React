@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { db } from '../config/firebase';
-import { getDocs, collection } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import '../css/home.css';
+
 const Home = () => {
     const [display, setDisplay] = useState([]);
-    const blogCollection = collection(db, "blogs"); //gets the collection from blogs database
+    const [filterBlog, setFilterBlog] = useState([]);
+
+    const blogCollection = collection(db, "users-blog"); //gets the collection from blogs database
     const displayBlogs = async () => {
         try {
-            const blogData = await getDocs(blogCollection); //gives all the objects there are(unrequired)
+            const blogData = await getDocs(blogCollection); //gives all the elements there are(unrequired)
             const filteredData = blogData.docs.map((doc) => ({ //filtering data to get only data that we need
                 ...doc.data(), id: doc.id
             }));
@@ -16,17 +19,24 @@ const Home = () => {
         } catch (error) {
             console.log(error);
         }
+        // onSnapshot(collection(db, "users-blog"), (snapshot) => {
+        //     let list = [];
+        //     snapshot.docs.forEach((doc) => {
+        //         list.push({ id: doc.id, ...doc.data() })
+        //     });
+        //     setDisplay(list);
+        //     setFilterBlog(list);
+        // }, (error) => {
+        //     console.log("Error while displaying blogs ", error);
+        // })
+
     }
 
     useEffect(() => {
         displayBlogs();
     }, []);
 
-    const [filterBlog, setFilterBlog] = useState([]);
     const searchBlogs = (event) => {
-        // if (!event.target.value) {
-        //     return displayBlogs();
-        // }
         if (event.target.value === "All") {
             displayBlogs();
         }
@@ -53,10 +63,13 @@ const Home = () => {
                 </select>
             </div>
             {filterBlog && filterBlog.map((blog) => (
-                <div className='blog-section'>
+                <div className='blog-section' key={blog.id}>
                     <h1>{blog.title}</h1>
                     <h3><b className='category-display'>Category: </b>{blog.category}</h3>
-                    <p>{blog.description}</p>
+                    <div className='content-section'>
+                        <img src={blog.image}></img>
+                        <p>{blog.description}</p>
+                    </div>
 
                 </div>
             ))}
