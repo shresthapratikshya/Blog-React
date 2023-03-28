@@ -11,10 +11,11 @@ const Account = () => {
         title: "",
         description: "",
         category: "",
-        image: null
+        image: ""
     });
 
     const [file, setFile] = useState(null); //image upload
+    const [preview, setPreview] = useState();
     const { title, description, category, image } = blogList;//data
     const blogCollection = collection(db, "users-blog");
 
@@ -87,6 +88,16 @@ const Account = () => {
         }
     };
 
+    useEffect(() => {  //for preview of image before uploading
+        if (!file) {
+            setPreview(undefined)
+            return
+        }
+        const objectURL = URL.createObjectURL(file);
+        setPreview(objectURL);
+        return () => URL.revokeObjectURL(objectURL)
+    }, [file]);
+
     //display
     const [display, setDisplay] = useState([]);
     const blogDisplay = collection(db, "users-blog"); //gets the collection from blogs database
@@ -131,14 +142,12 @@ const Account = () => {
 
     //update
     const [updateBlogData, setUpdatedBlogData] = useState(false);
-    // const [updateFile, setUpdateFile] = useState([]);
     const [updateValues, setUpdateValues] = useState({
         title: "",
         description: "",
         category: "",
         image: ""
     }); //to store update values
-
     const [blogId, setBlogId] = useState(0);
     //first call from edit button
     const updateBlogList = (id) => {
@@ -147,19 +156,19 @@ const Account = () => {
             title: "",
             description: "",
             category: "",
-            image: ""
+            image: null
         });
         setUpdatedBlogData(true);
-        // setBlogList({ ...blogList });
-        // setBlogList(display.filter(blog => blog.id === id)[0]); // to set the current blog data in the form
-        // console.log("Updated=", id);
     }
 
     const changeBlogList = async () => {
         const blogDoc = doc(db, "users-blog", blogId); //problem
         console.log("Data has been updated successfully");
+        const refImage = ref(storage, `images/${file.name + v4()}`);
         try {
-            await updateDoc(blogDoc, { title: updateValues.title, category: updateValues.category, description: updateValues.description });
+            const uploadTask = await uploadBytesResumable(refImage, file);
+            const downloadURL = await getDownloadURL(uploadTask.ref);
+            await updateDoc(blogDoc, { title: updateValues.title, category: updateValues.category, description: updateValues.description, image: downloadURL });
             displayBlogs();
             setUpdatedBlogData(false);
             alert("Data has been updated");
@@ -181,7 +190,10 @@ const Account = () => {
                         <option value="Featured">Featured</option>
                     </select>
                 </div>
-                <input type="file" className='file-upload' label="Upload Image" onChange={(e) => setFile(e.target.files[0])}></input>
+                <div>
+                    <input type="file" className='file-upload' label="Upload Image" onChange={(e) => setFile(e.target.files[0])}></input>
+                    {file && <img src={preview} className="image-preview" />}
+                </div>
                 <button type='submit' onClick={submitBlog}>Publish</button>
             </div>
             <div className='account-blogs'>
@@ -207,8 +219,11 @@ const Account = () => {
                                         <option value="Popular">Popular</option>
                                         <option value="Featured">Featured</option>
                                     </select>
+                                    <div>
+                                        <input type="file" className='file-upload' label="Upload Image" onChange={(e) => setFile(e.target.files[0])}></input>
+                                        {file && <img src={preview} className="image-preview" />}
+                                    </div>
                                 </div>
-                                {/* <input type="file" className='file-upload' label="Upload Image" onChange={(e) => setUpdateFile(e.target.files[0])}></input> */}
                                 <button className='edit-button' onClick={() => changeBlogList()}>UPDATE</button>
                             </div>}
                     </div>

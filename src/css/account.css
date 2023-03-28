@@ -111,3 +111,7 @@ button:hover {
 .content-section>img {
     margin-bottom: 15px;
 }
+
+.image-preview {
+    width: 20vh;
+}
